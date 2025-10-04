@@ -1,4 +1,6 @@
 /* ======== BASE GENERAL ======== */
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
@@ -46,7 +48,7 @@ header p {
   background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
   padding: 30px 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.25);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.18);
 }
 
 /* ======== CATÁLOGO ======== */
@@ -62,70 +64,80 @@ header p {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
-/* Limitar el ancho del catálogo */
-.productos {
+/* ---------- Layout: 2 tarjetas por fila (escritorio), 1 en móvil ---------- */
+.catalogo .productos {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas fijas */
-  gap: 35px;
+  /* fuerza 2 columnas en pantallas amplias; cada columna mínimo 300px */
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  gap: 30px;
   justify-content: center;
-  max-width: 900px;
-  margin: 0 auto; /* centra el grid */
+  align-items: start;
+  max-width: 980px;     /* controla el ancho total del grid */
+  margin: 0 auto;       /* centra el grid en la página */
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
-.item {
+.catalogo .item {
+  width: 100%;
+  box-sizing: border-box;
   background: linear-gradient(180deg, #e53935, #c62828, #6d1b1b);
-  padding: 25px;
+  padding: 22px;
   border-radius: 14px;
   cursor: pointer;
   opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.6s ease;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: scale(0.92);
+  transition: all 0.5s cubic-bezier(.2,.8,.2,1);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.36);
   overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
-.item.visible {
+/* estado visible (al aparecer con JS) */
+.catalogo .item.visible {
   opacity: 1;
   transform: scale(1);
 }
 
-.item img {
+/* imagenes responsivas dentro del item */
+.catalogo .item img {
   width: 100%;
+  height: auto;
+  display: block;
   border-radius: 10px;
   margin-bottom: 12px;
-  transition: transform 0.4s ease, filter 0.4s ease;
-  filter: brightness(0.95);
+  transition: transform 0.35s ease, filter 0.35s ease;
+  filter: brightness(0.97);
 }
 
-.item img:hover {
-  transform: scale(1.15);
-  filter: brightness(1.1);
+.catalogo .item img:hover {
+  transform: scale(1.12);
+  filter: brightness(1.05);
 }
 
-.item h3 {
+.catalogo .item h3 {
   font-size: 1.1em;
   color: #fff;
   margin-top: 10px;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.18);
 }
 
 /* ======== DESCRIPCIÓN DE PRODUCTO ======== */
-.specs {
+.catalogo .specs {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.6s ease;
+  transition: max-height 0.55s ease, padding 0.55s ease;
   text-align: left;
-  font-size: 0.9em;
+  font-size: 0.95em;
   color: #fff;
   margin-top: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 8px;
   padding: 0 10px;
 }
 
-.item:hover .specs {
-  max-height: 300px;
+.catalogo .item:hover .specs {
+  max-height: 320px;
   padding: 10px;
 }
 
@@ -152,7 +164,9 @@ footer h2 {
   gap: 25px;
 }
 
-.btn {
+/* .btn se aplica a <a> o <button> */
+.btn, a.btn {
+  display: inline-block;
   padding: 12px 24px;
   background: linear-gradient(90deg, #b80000, #d32f2f);
   border: none;
@@ -160,13 +174,34 @@ footer h2 {
   color: #fff;
   font-size: 1em;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
 }
 
-.btn:hover {
+.btn:hover, a.btn:hover {
   background: linear-gradient(90deg, #ff5555, #e53935);
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 50, 50, 0.6);
+  box-shadow: 0 0 20px rgba(255, 50, 50, 0.5);
+}
+
+/* ======== MEDIA QUERIES ======== */
+/* en pantallas medianas permitimos columnas más pequeñas */
+@media (max-width: 1100px) {
+  .catalogo .productos {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    max-width: 880px;
+  }
+}
+
+/* en pantallas pequeñas: 1 columna */
+@media (max-width: 760px) {
+  .catalogo .productos {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+    gap: 22px;
+  }
+
+  header h1 { font-size: 2.2em; }
+  header { padding: 36px 16px; }
 }
 
