@@ -65,15 +65,15 @@ header p {
 /* Limitar el ancho del catálogo */
 .productos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  max-width: 1000px;   /* límite del ancho total del catálogo */
-  margin: 0 auto;      /* centra el contenido */
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas fijas */
+  gap: 35px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto; /* centra el grid */
 }
 
-/* ======== TARJETAS ======== */
 .item {
-  background: linear-gradient(180deg, #e53935, #b71c1c, #4a1b1b);
+  background: linear-gradient(180deg, #e53935, #c62828, #6d1b1b);
   padding: 25px;
   border-radius: 14px;
   cursor: pointer;
